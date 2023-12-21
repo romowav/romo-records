@@ -75,7 +75,7 @@ VALUES (99, 100, 1475);
 
 
 -- Comandos Generales
-SELECT * FROM records;
+SELECT * FROM records; 
 SELECT * FROM sales;
 SELECT * FROM tickets;
 

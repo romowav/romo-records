@@ -5,7 +5,7 @@ class Records {
         this.records = []
     }
 
-    async getRecords(){
+    async getRecords() {
         try{
             const queryString = ``;
             const result = await connecDB.query(queryString);
@@ -42,8 +42,6 @@ class Records {
     }
 
     async deleteRecord(delRecord) {
-        // NECESITO ARMAR MI OBJETO DEL CONTROLLER PARA DESTRUCTURARLO ACA Y ACOMODAR LOS DATOS
-        const { } = delRecord;
 
         try{
             const queryString = `DELETE`;
@@ -56,4 +54,4 @@ class Records {
     }
 }
 
-modules.exports = { Records }
+module.exports = { Records }
