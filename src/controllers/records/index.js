@@ -27,8 +27,8 @@ const create = async (req, res) => {
     try {
         const newRecord = req.body;
         const registerWorked = await recordsObj.createRecords(newRecord);
-        const message = registerWorked === true ? 'success create' : 'fail create';
-        res.status(201).json({message: message, data: newRecord});
+        const messageIs = registerWorked === true ? 'success create' : 'fail create';
+        res.status(201).json({message: messageIs, data: newRecord});
     } catch (error) {
         res.status(500).json({ message: error });
     }

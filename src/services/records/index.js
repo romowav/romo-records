@@ -26,11 +26,21 @@ class Records {
     }
 
     async createRecords(newRecord) {
-        // NECESITO ARMAR MI OBJETO DEL CONTROLLER PARA DESTRUCTURARLO ACA Y ACOMODAR LOS DATOS
-        const { } = newRecord;
+        const { 
+            band,
+            record_title,
+            release_year,
+            sale_prize,
+            purchase_prize,
+            storage_quantity
+        } = newRecord;
+
         try{
-            const queryString = `INSERT INTO`;
-            const params = 'aqui van a etsar los datos destructurados de newRecord';
+            const queryString = `
+                INSERT INTO records (band, record_title, release_year, sale_prize, purchase_prize, storage_quantity)
+                VALUES ($1, $2, $3, $4, $5, $6)
+            `;
+            const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity];
             const result = await connecDB.query(queryString, params);
             return true;
         }catch (error){
