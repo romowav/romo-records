@@ -1,4 +1,4 @@
-const { Records } = require('../services/records/index.js');
+const { Records } = require('../../services/records/index.js');
 const recordsObj = new Records();
 
 const get = async (req, res) => {
@@ -8,6 +8,16 @@ const get = async (req, res) => {
         // const page = req.query.page
         const records = await recordsObj.getRecords();
         res.status(200).json(records);
+    } catch (error) {
+        res.status(500).json({ message: 'con' });
+    }
+}
+
+const getOne = async (req, res) => {
+    try {
+        const idLookUp = req.params.id;
+        const record = await recordsObj.getOneRecord(idLookUp);
+        res.status(200).json(record);
     } catch (error) {
         res.status(500).json({ message: error });
     }
@@ -50,6 +60,7 @@ const deleteRecord = async (req, res) => {
 
 module.exports = {
     get,
+    getOne,
     create,
     editRecord,
     deleteRecord

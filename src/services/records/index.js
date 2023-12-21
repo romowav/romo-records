@@ -1,4 +1,4 @@
-const connecDB = 'necesito crear archivo de conneccion con DB'
+const connecDB = require('../../db/connection.js');
 class Records {
 
     constructor() {
@@ -7,11 +7,21 @@ class Records {
 
     async getRecords() {
         try{
-            const queryString = ``;
+            const queryString = `SELECT * FROM records;`;
             const result = await connecDB.query(queryString);
             return result.rows;
         }catch (error){
-            throw new Error(error);
+            throw new Error('services error');
+        }
+    }
+
+    async getOneRecord(idLookUp) {
+        try{
+            const queryString = `SELECT * FROM records WHERE id_record = ${idLookUp};`;
+            const result = await connecDB.query(queryString);
+            return result.rows;
+        }catch (error){
+            throw new Error('services error');
         }
     }
 
@@ -27,6 +37,7 @@ class Records {
             throw new Error(error);
         }
     }
+
     async modifyRecord(modRecord) {
         // NECESITO ARMAR MI OBJETO DEL CONTROLLER PARA DESTRUCTURARLO ACA Y ACOMODAR LOS DATOS
         const { } = modRecord;

@@ -4,6 +4,7 @@ const router = express.Router();
 
 const routerApi = (app) => {
     app.use('/api/v0', router);
+    router.use('/records', recordsRouter);
 
 }
 
