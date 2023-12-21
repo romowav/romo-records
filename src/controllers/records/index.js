@@ -39,7 +39,7 @@ const editRecord = async (req, res) => {
         // guardo el id que va a venir en la URL, para saber que record tengo que modificar en la DB
         const idModify = req.params.id;
         const modRecord = req.body;
-        const modifyWorked = await recordsObj.modifyRecord(idModify, modRecord);
+        const modifyWorked = await recordsObj.modifyRecord(modRecord, idModify);
         const modMessage = modifyWorked === true ? 'success modify' : 'fail modify';
         res.status(202).json({message: modMessage, id: idModify, data: modRecord});
     } catch (error) {

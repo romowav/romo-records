@@ -48,13 +48,19 @@ class Records {
         }
     }
 
-    async modifyRecord(modRecord) {
-        // NECESITO ARMAR MI OBJETO DEL CONTROLLER PARA DESTRUCTURARLO ACA Y ACOMODAR LOS DATOS
-        const { } = modRecord;
+    async modifyRecord(modRecord, idLookUp) {
+        const { 
+            band,
+            record_title,
+            release_year,
+            sale_prize,
+            purchase_prize,
+            storage_quantity
+        } = modRecord;
 
         try{
-            const queryString = `UPDATE`;
-            const params = 'aqui van a etsar los datos destructurados de modRecord';
+            const queryString = `UPDATE records SET band = $1, record_title = $2, release_year = $3, sale_prize = $4, purchase_prize = $5, storage_quantity = $6 WHERE id_record = $7;`;
+            const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity, idLookUp];
             const result = await connecDB.query(queryString, params);
             return true;
         }catch (error){
