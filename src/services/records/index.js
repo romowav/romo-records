@@ -71,9 +71,9 @@ class Records {
     async deleteRecord(delRecord) {
 
         try{
-            const queryString = `DELETE`;
-            const params = 'aqui van a etsar los datos destructurados de delRecord';
-            const result = await connecDB.query(queryString, params);
+            const queryString = `DELETE FROM records WHERE id_record = ${delRecord};`;
+            // const params = 'aqui van a etsar los datos destructurados de delRecord';
+            const result = await connecDB.query(queryString);
             return true;
         }catch (error){
             throw new Error(error);
