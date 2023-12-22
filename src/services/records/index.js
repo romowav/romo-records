@@ -42,6 +42,7 @@ class Records {
             `;
             const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity];
             const result = await connecDB.query(queryString, params);
+            console.log(result);
             return true;
         }catch (error){
             throw new Error(error);
@@ -62,7 +63,7 @@ class Records {
             const queryString = `UPDATE records SET band = $1, record_title = $2, release_year = $3, sale_prize = $4, purchase_prize = $5, storage_quantity = $6 WHERE id_record = $7;`;
             const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity, idLookUp];
             const result = await connecDB.query(queryString, params);
-            return true;
+            return result.rowCount == 1 ? true : false;
         }catch (error){
             throw new Error(error);
         }
