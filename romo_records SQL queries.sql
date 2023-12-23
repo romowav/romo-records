@@ -1,14 +1,13 @@
 -- Comandos creacion de Tablas
 CREATE TABLE records (
-	id_record SERIAL PRIMARY KEY 
-	-- CHECK (band != '' AND release_year > 0 AND sale_prize > 0 AND band != NULL AND release_year != NULL AND sale_prize != NULL)
-	, 
+	id_record SERIAL PRIMARY KEY, 
 	band VARCHAR (30) NOT NULL CHECK (band != ''), 
 	record_title VARCHAR(50) NOT NULL,
 	release_year SMALLINT NOT NULL CHECK (release_year > 0), 
 	sale_prize SMALLINT NOT NULL CHECK (sale_prize > 0),
 	purchase_prize SMALLINT NOT NULL CHECK (purchase_prize >= 0),
-	storage_quantity SMALLINT NOT NULL CHECK (storage_quantity >= 0)
+	storage_quantity SMALLINT NOT NULL CHECK (storage_quantity >= 0),
+	CONSTRAINT unique_title UNIQUE (band, record_title)
 );
 
 CREATE TABLE tickets (
@@ -29,7 +28,7 @@ CREATE TABLE sales (
 );
 
 -- Comandos para tabla "records"
-ALTER TABLE records ADD CONSTRAINT unique_title UNIQUE (band, record_title);
+ALTER TABLE records ADD 
 
 INSERT INTO records (id_record, band, record_title, release_year, sale_prize, purchase_prize, storage_quantity)
 VALUES 
@@ -50,8 +49,19 @@ VALUES
 (DEFAULT, 'Kali Uchis', 'Sin Miedo (del Amor y Otros Demonios)', 2018, 1250, 350, 30),
 (DEFAULT, 'Kali Uchis', 'Red Moon in Venus', 2023, 1500, 350, 30);
 
+DELETE FROM records WHERE id_record = 50;
+
 -- Comandos para Tickets
-INSERT INTO tickets (id_record, piece_quantity) VALUES (4, 0);
+INSERT INTO tickets (successful, total) 
+VALUES 
+(true, 1200),
+(true, 3000),
+(true, 2500),
+(false, 2500),
+(true, 2100),
+(true, 1700),
+(false, 1200),
+(true, 1200);
 
 
 -- TEST para NOT NULL validations
@@ -62,8 +72,8 @@ INSERT INTO tickets (total) VALUES (1);
 
 
 -- TEST para CHECK validations
-INSERT INTO records (id_record, band, record_title, release_year, sale_prize)
-VALUES (DEFAULT, 'H', 'Caribe Caribe', 1, 0);
+INSERT INTO records (id_record, band, record_title, release_year, sale_prize, purchase_prize, storage_quantity)
+VALUES (DEFAULT, 'La Vida Boh', 'Caribe Caribe', 2020, 1200, 200, 1);
 
 INSERT INTO tickets (successful, total) VALUES (true, 5);
 
