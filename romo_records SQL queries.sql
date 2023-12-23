@@ -63,6 +63,16 @@ VALUES
 (false, 1200),
 (true, 1200);
 
+-- Comandos para Tabla sales
+INSERT INTO sales (id_record, id_ticket, piece_quantity) VALUES 
+(4, 2, 2),
+(7, 3, 1),
+(10, 3, 1),
+(5, 4, 1),
+(7, 5, 1),
+(8, 5, 2),
+(12, 1, 2);
+
 
 -- TEST para NOT NULL validations
 INSERT INTO records (id_record, record_title)
