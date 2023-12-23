@@ -49,7 +49,7 @@ VALUES
 (DEFAULT, 'Kali Uchis', 'Sin Miedo (del Amor y Otros Demonios)', 2018, 1250, 350, 30),
 (DEFAULT, 'Kali Uchis', 'Red Moon in Venus', 2023, 1500, 350, 30);
 
-DELETE FROM records WHERE id_record = 50;
+DELETE FROM records WHERE id_record = 16;
 
 -- Comandos para Tickets
 INSERT INTO tickets (successful, total) 

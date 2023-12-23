@@ -10,21 +10,41 @@ const get = async (req, res) => {
     }
 }
 
+const getOne = async (req, res) => {
+    try {
+        const idLookUp = req.params.id
+        const ticket = await ticketsObj.getOneTicket(idLookUp);
+        res.status(200).json(ticket);
+    } catch (error) {
+        res.status(500).json({message: 'No puedo mostrar el ticket'})
+    }
+}
+
 const create = async (req, res) => {
     try {
         const newTicket = req.body;
-        const creationTicket = await ticketsObj.createTickets(newTicket);
-        const creationWorked = creationTicket === true ? 'success' : 'fail';
-        res.status(200).json({message: creationWorked});
-
+        await ticketsObj.createTickets(newTicket);
+        res.status(201).json({message: 'Ticket creado', data: newTicket});
     } catch (error) {
         res.status(500).json({ message: 'conroller' });
     }
 }
 
+const modifyTicket = async (req, res) => {
+    try {
+        const idTicket = req.params.id;
+        const modTicket = req.body;
+        await ticketsObj.modifyTickets(modTicket, idTicket);
+        res.status(200).json({message: 'Ticket modificado', data: modTicket});
+    }catch (error) {
+        res.status(500).json({message: 'No puedo modificar el ticket'});
+    }
+}
 
 
 module.exports = {
     get,
-    create
+    getOne,
+    create,
+    modifyTicket
 }
