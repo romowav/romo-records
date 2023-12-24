@@ -61,13 +61,15 @@ const modifySale = async (req,res) => {
     }
 }
 
-// const deleteSale = async (req,res) => {
-//     try {
-
-//     }catch (error) {
-//         res.status(500).json({message: 'No puedo borrar la sale'});
-//     }
-// }
+const deleteSale = async (req,res) => {
+    try {
+        const delID = req.params.id;
+        await salesObj.deleteSale(delID);
+        res.status(200).json({message: 'Sale eliminada exitosamente', id: delID});
+    }catch (error) {
+        res.status(500).json({message: 'No puedo borrar la sale'});
+    }
+}
 
 module.exports = {
     get,
@@ -76,5 +78,5 @@ module.exports = {
     getSaleByRecord,
     createSale,
     modifySale,
-    // deleteSale
+    deleteSale
 };

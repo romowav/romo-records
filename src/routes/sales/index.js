@@ -6,7 +6,7 @@ const {
     getOneSale,
     createSale,
     modifySale,
-    // deleteSale,
+    deleteSale,
     getSaleByTicket,
     getSaleByRecord
 } = require('../../controllers/sales/index.js');
@@ -17,6 +17,6 @@ salesRouter.get('/ticket/:id', getSaleByTicket);
 salesRouter.get('/record/:id', getSaleByRecord);
 salesRouter.post('/', createSale);
 salesRouter.patch('/:id', modifySale);
-// salesRouter.delete('/:id', deleteSale);
+salesRouter.delete('/:id', deleteSale);
 
 module.exports = { salesRouter };
