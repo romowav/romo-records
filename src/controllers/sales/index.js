@@ -40,13 +40,15 @@ const getSaleByRecord = async (req,res) => {
     }
 }
 
-// const create = async (req,res) => {
-//     try {
-
-//     }catch (error) {
-//         res.status(500).json({message: 'No puedo crear la sale'});
-//     }
-// }
+const createSale = async (req,res) => {
+    try {
+        const newSale = req.body;
+        const saleCreated = await salesObj.createSale(newSale);
+        res.status(201).json({message: 'nueva sale agregada exitosamente', newSale})
+    }catch (error) {
+        res.status(500).json({message: 'No puedo crear la sale'});
+    }
+}
 
 // const modifySale = async (req,res) => {
 //     try {
@@ -69,7 +71,7 @@ module.exports = {
     getOneSale,
     getSaleByTicket,
     getSaleByRecord,
-    // create,
+    createSale,
     // modifySale,
     // deleteSale
 };

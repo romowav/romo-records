@@ -44,6 +44,24 @@ class Sales {
             throw new Error (error);
         }
     }
+
+    async createSale(newSale) {
+        const { 
+            id_record,
+            id_ticket,
+            piece_quantity 
+        } = newSale;
+        try {
+            const queryString = `
+                INSERT INTO sales (id_record, id_ticket, piece_quantity) VALUES ($1, $2, $3);
+            `;
+            const params = [id_record, id_ticket, piece_quantity];
+            const result = await connDB.query(queryString, params);
+            return result.rowCount == 0 ? error : result.rows;
+        }catch (error) {
+            throw new Error (error);
+        }
+    }
 }
 
 module.exports = { Sales };

@@ -24,7 +24,8 @@ CREATE TABLE sales (
 	FOREIGN KEY (id_record) REFERENCES records(id_record),
 	id_ticket SMALLINT,
 	FOREIGN KEY (id_ticket) REFERENCES tickets(id_ticket),
-	piece_quantity INT NOT NULL CHECK (piece_quantity > 0)
+	piece_quantity INT NOT NULL CHECK (piece_quantity > 0),
+	CONSTRAINT no_duplicate_record_on_ticket UNIQUE (id_record, id_ticket)
 );
 
 -- Comandos para tabla "records"
@@ -95,10 +96,10 @@ VALUES (99, 100, 1475);
 
 
 -- Comandos Generales
-SELECT * FROM records; 
-SELECT * FROM sales;
+SELECT * FROM records;
 SELECT * FROM tickets;
+SELECT * FROM sales;
 
 DROP TABLE records;
-DROP TABLE sales;
 DROP TABLE tickets;
+DROP TABLE sales;

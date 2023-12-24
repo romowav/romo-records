@@ -4,7 +4,7 @@ const salesRouter = express.Router();
 const { 
     get,
     getOneSale,
-    // create,
+    createSale,
     // modifySale,
     // deleteSale,
     getSaleByTicket,
@@ -15,7 +15,7 @@ salesRouter.get('/', get);
 salesRouter.get('/:id', getOneSale);
 salesRouter.get('/ticket/:id', getSaleByTicket);
 salesRouter.get('/record/:id', getSaleByRecord);
-// salesRouter.post('/', create);
+salesRouter.post('/', createSale);
 // salesRouter.patch('/:id', modifySale);
 // salesRouter.delete('/:id', deleteSale);
 
