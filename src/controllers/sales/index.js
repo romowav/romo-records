@@ -43,20 +43,23 @@ const getSaleByRecord = async (req,res) => {
 const createSale = async (req,res) => {
     try {
         const newSale = req.body;
-        const saleCreated = await salesObj.createSale(newSale);
+        await salesObj.createSale(newSale);
         res.status(201).json({message: 'nueva sale agregada exitosamente', newSale})
     }catch (error) {
         res.status(500).json({message: 'No puedo crear la sale'});
     }
 }
 
-// const modifySale = async (req,res) => {
-//     try {
-
-//     }catch (error) {
-//         res.status(500).json({message: 'No puedo modificar la sale'});
-//     }
-// }
+const modifySale = async (req,res) => {
+    try {
+        const modSale = req.body;
+        const modId = req.params.id;
+        await salesObj.modifySale(modSale, modId);
+        res.status(201).json({message: 'Sale modificada exitosamente', id: modId, data: modSale})  
+    }catch (error) {
+        res.status(500).json({message: 'No puedo modificar la sale'});
+    }
+}
 
 // const deleteSale = async (req,res) => {
 //     try {
@@ -72,6 +75,6 @@ module.exports = {
     getSaleByTicket,
     getSaleByRecord,
     createSale,
-    // modifySale,
+    modifySale,
     // deleteSale
 };

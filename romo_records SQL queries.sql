@@ -94,6 +94,9 @@ INSERT INTO sales (id_record, id_ticket, piece_quantity) VALUES (5, 2, 1);
 INSERT INTO records (id_record, storage_quantity, purchase_prize)
 VALUES (99, 100, 1475);
 
+-- TEST para CONSTRAINTS
+INSERT INTO sales (id_record, id_ticket, piece_quantity) VALUES (5, 3, 2);
+
 
 -- Comandos Generales
 SELECT * FROM records;

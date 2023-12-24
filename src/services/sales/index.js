@@ -62,6 +62,22 @@ class Sales {
             throw new Error (error);
         }
     }
+
+    async modifySale(modSale, idLookUp) {
+        const { 
+            id_record,
+            id_ticket,
+            piece_quantity
+        } = modSale;
+        try {
+            const queryString = `UPDATE sales SET id_record = $1, id_ticket = $2, piece_quantity = $3 WHERE id_sale = $4;`;
+            const params = [id_record, id_ticket, piece_quantity, idLookUp];
+            const result = await connDB.query(queryString, params);
+            return result.rowCount == 0 ? error : result.rows;
+        }catch (error) {
+            throw new Error (error);
+        }
+    }
 }
 
 module.exports = { Sales };

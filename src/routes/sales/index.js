@@ -5,7 +5,7 @@ const {
     get,
     getOneSale,
     createSale,
-    // modifySale,
+    modifySale,
     // deleteSale,
     getSaleByTicket,
     getSaleByRecord
@@ -16,7 +16,7 @@ salesRouter.get('/:id', getOneSale);
 salesRouter.get('/ticket/:id', getSaleByTicket);
 salesRouter.get('/record/:id', getSaleByRecord);
 salesRouter.post('/', createSale);
-// salesRouter.patch('/:id', modifySale);
+salesRouter.patch('/:id', modifySale);
 // salesRouter.delete('/:id', deleteSale);
 
 module.exports = { salesRouter };
