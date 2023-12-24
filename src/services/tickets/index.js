@@ -7,7 +7,7 @@ class Tickets {
 
     async getTickets() {
         try {
-            const queryString = `SELECT * FROM tickets;`;
+            const queryString = `SELECT * FROM tickets ORDER BY id_ticket ASC;`;
             const result = await connecDB.query(queryString);
             return result.rows;
         }catch (error) {

@@ -7,7 +7,7 @@ class Records {
 
     async getRecords() {
         try{
-            const queryString = `SELECT * FROM records;`;
+            const queryString = `SELECT * FROM records ORDER BY id_record ASC;`;
             const result = await connecDB.query(queryString);
             return result.rows;
         }catch (error){
