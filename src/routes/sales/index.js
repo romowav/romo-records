@@ -7,13 +7,13 @@ const {
     // create,
     // modifySale,
     // deleteSale,
-    // getSaleByTicket,
+    getSaleByTicket
     // getSaleByRecord
 } = require('../../controllers/sales/index.js');
 
 salesRouter.get('/', get);
 salesRouter.get('/:id', getOneSale);
-// salesRouter.get('/ticket/:id', getSaleByTicket);
+salesRouter.get('/ticket/:id', getSaleByTicket);
 // salesRouter.get('/record/:id', getSaleByRecord);
 // salesRouter.post('/', create);
 // salesRouter.patch('/:id', modifySale);
