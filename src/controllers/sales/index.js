@@ -30,13 +30,15 @@ const getSaleByTicket = async (req,res) => {
     }
 }
 
-// const getSaleByRecord = async (req,res) => {
-//     try {
-
-//     }catch (error) {
-//         res.status(500).json({message: 'No puedo conseguir la sale con ese record'});
-//     }
-// }
+const getSaleByRecord = async (req,res) => {
+    try {
+        const idRecord = req.params.id;
+        const salesWithRecord = await salesObj.getSaleByRecord(idRecord);
+        res.status(200).json(salesWithRecord);
+    }catch (error) {
+        res.status(500).json({message: 'No puedo conseguir la sale con ese record'});
+    }
+}
 
 // const create = async (req,res) => {
 //     try {
@@ -66,7 +68,7 @@ module.exports = {
     get,
     getOneSale,
     getSaleByTicket,
-    // getSaleByRecord,
+    getSaleByRecord,
     // create,
     // modifySale,
     // deleteSale
