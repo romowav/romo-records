@@ -3,14 +3,19 @@ const salesRouter = express.Router();
 
 const { 
     get,
-    getOne,
+    getOneSale,
     create,
     modifySale,
-    deleteSale
+    deleteSale,
+    getOneSale,
+    getSaleByTicket,
+    getSaleByRecord
 } = require('../../controllers/sales/index.js');
 
 salesRouter.get('/', get);
-salesRouter.get('/:id', getOne);
+salesRouter.get('/:id', getOneSale);
+salesRouter.get('/ticket/:id', getSaleByTicket);
+salesRouter.get('/record/:id', getSaleByRecord);
 salesRouter.post('/', create);
 salesRouter.patch('/:id', modifySale);
 salesRouter.delete('/:id', deleteSale);

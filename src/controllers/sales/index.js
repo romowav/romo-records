@@ -3,18 +3,34 @@ const salesObj = new Sales();
 
 const get = async (req,res) => {
     try {
-        await salesObj.getSales();
-        res.status(200).json();
+        const sales = await salesObj.getSales();
+        res.status(200).json(sales);
     }catch (error) {
         res.status(500).json({message: 'No puedo conseguir las sale'});
     }
 }
 
-const getOne = async (req,res) => {
+const getOneSale = async (req,res) => {
     try {
 
     }catch (error) {
         res.status(500).json({message: 'No puedo conseguir la sale'});
+    }
+}
+
+const getSaleByTicket = async (req,res) => {
+    try {
+
+    }catch (error) {
+        res.status(500).json({message: 'No puedo conseguir la sale con ese ticket'});
+    }
+}
+
+const getSaleByRecord = async (req,res) => {
+    try {
+
+    }catch (error) {
+        res.status(500).json({message: 'No puedo conseguir la sale con ese record'});
     }
 }
 
@@ -44,7 +60,9 @@ const deleteSale = async (req,res) => {
 
 module.exports = {
     get,
-    getOne,
+    getOneSale,
+    getSaleByTicket,
+    getSaleByRecord,
     create,
     modifySale,
     deleteSale
