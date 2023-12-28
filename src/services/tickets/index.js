@@ -19,7 +19,7 @@ class Tickets {
         try {
             const queryString = `SELECT * FROM tickets WHERE id_ticket = ${idLookUp};`;
             const result = await connecDB.query(queryString)
-            return result.rowCount == 0 ? error : result.rows;    
+            return result;  
         }catch (error) {
             throw new Error('services error');
         }
@@ -37,7 +37,7 @@ class Tickets {
             const queryString = `INSERT INTO tickets (id_ticket, successful, total) VALUES (NEXTVAL('id_para_tickets'), $1, $2);`;
             const params = [successful, total];
             const result = await connecDB.query(queryString, params);
-            return result.rowCount == 0 ? error : true;
+            return result;
         }catch (error) {
             throw new Error('services error');
         }
@@ -49,17 +49,19 @@ class Tickets {
             const queryString = `UPDATE tickets SET successful = $1, total = $2 WHERE id_ticket = ${idLookUp};`;
             const params = [successful, total]
             const result = await connecDB.query(queryString, params);
-            return result.rowCount == 0 ? error : true;
+            return result;
         }catch (error) {
-            throw new Error('services error');
+            throw new Error(error);
         }
     }
 
     async deleteTickets(delTicket) {
         try {
-
+            const queryString = `DELETE FROM tickets WHERE id_ticket = ${delTicket}`;
+            const result = await connecDB.query(queryString);
+            return result;
         }catch (error) {
-            throw new Error('services error');
+            throw new Error(error);
         }
     }
 }
