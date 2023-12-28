@@ -19,7 +19,8 @@ class Records {
         try{
             const queryString = `SELECT * FROM records WHERE id_record = ${idLookUp};`;
             const result = await connecDB.query(queryString);
-            return result.rowCount == 0 ? error : result.rows;
+            return result
+            // .rowCount == 0 ? error : result.rows;
         }catch (error){
             throw new Error('services error');
         }
@@ -36,12 +37,15 @@ class Records {
         } = newRecord;
 
         try{
+            const querySet = `SELECT SETVAL('id_para_records', COALESCE((SELECT MAX(id_record) FROM records), 0) + 0 );`
+            await connecDB.query(querySet);
             const queryString = `
-                INSERT INTO records (band, record_title, release_year, sale_prize, purchase_prize, storage_quantity)
-                VALUES ($1, $2, $3, $4, $5, $6)
-            `;
+                    INSERT INTO records (id_record, band, record_title, release_year, sale_prize, purchase_prize, storage_quantity) 
+                    VALUES (NEXTVAL('id_para_records'), $1, $2, $3, $4, $5, $6);
+                `;
             const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity];
             const result = await connecDB.query(queryString, params);
+
             // console.log('result services ------------------',result);
 
             // Aqui hago la validacion de mi funcion, la cual va a regresar al controller un "error" o el "result" con el record creado.

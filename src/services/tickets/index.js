@@ -32,7 +32,9 @@ class Tickets {
         } = newTicket;
 
         try {
-            const queryString = `INSERT INTO tickets (successful, total) VALUES ($1, $2);`;
+            const querySet = `SELECT SETVAL('id_para_tickets', COALESCE((SELECT MAX(id_ticket) FROM tickets), 0) + 0 );`;
+            await connecDB.query(querySet);
+            const queryString = `INSERT INTO tickets (id_ticket, successful, total) VALUES (NEXTVAL('id_para_tickets'), $1, $2);`;
             const params = [successful, total];
             const result = await connecDB.query(queryString, params);
             return result.rowCount == 0 ? error : true;

@@ -17,9 +17,13 @@ const getOne = async (req, res) => {
     try {
         const idLookUp = req.params.id;
         const record = await recordsObj.getOneRecord(idLookUp);
-        res.status(200).json(record);
+        if (record.rowCount == 0) {
+            res.status(404).json({message: 'No existe el record'})
+        }else {
+            res.status(200).json(record.rows);
+        }
     } catch (error) {
-        res.status(500).json({ message: 'No existe el record' });
+        res.status(500).json({ message: 'No existe el servidor' });
     }
 }
 

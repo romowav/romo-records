@@ -52,8 +52,10 @@ class Sales {
             piece_quantity 
         } = newSale;
         try {
+            const querySet = `SELECT SETVAL('id_para_sales', COALESCE((SELECT MAX(id_sale) FROM sales), 0) + 0 );`
+            await connDB.query(querySet);
             const queryString = `
-                INSERT INTO sales (id_record, id_ticket, piece_quantity) VALUES ($1, $2, $3);
+                INSERT INTO sales (id_Sale, id_record, id_ticket, piece_quantity) VALUES (NEXTVAL('id_para_sales'), $1, $2, $3);
             `;
             const params = [id_record, id_ticket, piece_quantity];
             const result = await connDB.query(queryString, params);

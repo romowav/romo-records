@@ -26,7 +26,7 @@ const create = async (req, res) => {
         await ticketsObj.createTickets(newTicket);
         res.status(201).json({message: 'Ticket creado', data: newTicket});
     } catch (error) {
-        res.status(500).json({ message: 'conroller' });
+        res.status(500).json({ message: 'No puedo crear el ticket' });
     }
 }
 
