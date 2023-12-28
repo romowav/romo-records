@@ -11,7 +11,7 @@ class Records {
             const result = await connecDB.query(queryString);
             return result.rows;
         }catch (error){
-            throw new Error('services error');
+            throw new Error(error);
         }
     }
 
@@ -19,10 +19,9 @@ class Records {
         try{
             const queryString = `SELECT * FROM records WHERE id_record = ${idLookUp};`;
             const result = await connecDB.query(queryString);
-            return result
-            // .rowCount == 0 ? error : result.rows;
+            return result;
         }catch (error){
-            throw new Error('services error');
+            throw new Error(error);
         }
     }
 
@@ -45,11 +44,7 @@ class Records {
                 `;
             const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity];
             const result = await connecDB.query(queryString, params);
-
-            // console.log('result services ------------------',result);
-
-            // Aqui hago la validacion de mi funcion, la cual va a regresar al controller un "error" o el "result" con el record creado.
-            return result.rowCount == 0 ? error : result;
+            return result;
         }catch (error){
             throw new Error(error);
         }
@@ -68,22 +63,20 @@ class Records {
         try{
             const queryString = `UPDATE records SET band = $1, record_title = $2, release_year = $3, sale_prize = $4, purchase_prize = $5, storage_quantity = $6 WHERE id_record = $7;`;
             const params = [band, record_title, release_year, sale_prize, purchase_prize, storage_quantity, idLookUp];
-            // Aqui hago la validacion de mi funcion, la cual va a regresar al controller un "false" o "true" a mi controller.
             const result = await connecDB.query(queryString, params);
-            return result.rowCount == 0 ? false : true;
+            return result;
         }catch (error){
             throw new Error(error);
         }
     }
 
     async deleteRecord(delRecord) {
-
         try{
             const queryString = `
                 DELETE FROM records WHERE id_record = ${delRecord};
             `;
             const result = await connecDB.query(queryString);
-            return result.rowCount == 0 ? error : true;
+            return result;
         }catch (error){
             throw new Error(error);
         } 

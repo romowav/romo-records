@@ -30,11 +30,12 @@ const getOne = async (req, res) => {
 const create = async (req, res) => {
     try {
         const newRecord = req.body;
-        // Como no voy hacer validacion aqui, no hay necesidad de guardar el await dentro de una const.
-        await recordsObj.createRecords(newRecord);
-        // Ya no hay necesidad de validacion aqui, por que dentro .createRecords() va a traer o el "result" de Servicesw o un "error"
-            // const messageIs = registerWorked.rowCount = 0 ? 'fail create' : 'Nuevo record agregado';
-        res.status(201).json({message: 'Nuevo record agregado', data: newRecord});
+        const result = await recordsObj.createRecords(newRecord);
+        if (result.rowCount == 0) {
+            res.status(403).json({message: 'No pude agregar el record'});
+        } else {
+            res.status(201).json({message: 'Nuevo record agregado', data: newRecord});
+        }
     } catch (error) {
         res.status(500).json({ message: 'No se pudo agregar el record' });
     }
@@ -45,11 +46,14 @@ const editRecord = async (req, res) => {
         // guardo el id que va a venir en la URL, para saber que record tengo que modificar en la DB
         const idModify = req.params.id;
         const modRecord = req.body;
-        // Como no voy hacer validacion aqui, no hay necesidad de guardar el await dentro de una const.
-        await recordsObj.modifyRecord(modRecord, idModify);
-        // Ya no hay necesidad de validacion aqui, por que dentro .modifyRecords() va a traer o un "true" de Servicesw o un "false"
-            // const modMessage = modifyWorked.rowCount = 0 ? 'fail modify' : 'success modify';
-        res.status(202).json({message: 'Record modificado exitosamente', id: idModify, data: modRecord});
+        //  Guardo el resultado de mi consulta a la DB para validarda
+        const result = await recordsObj.modifyRecord(modRecord, idModify);
+        // Valido mi consulta para saber que mensaje de HTTP devolver
+        if (result.rowCount == 0){
+            res.status(404).json({message: 'No encontre el Record', id: idModify});
+        } else {
+            res.status(202).json({message: 'Record modificado exitosamente', id: idModify, data: modRecord});
+        }
     } catch (error) {
         res.status(500).json({ message: 'No puedo modificar el record' });
     }
@@ -58,11 +62,12 @@ const editRecord = async (req, res) => {
 const deleteRecord = async (req, res) => {
     try {
         const idDelete = req.params.id;
-        // Como no voy hacer validacion aqui, no hay necesidad de guardar el await dentro de una const.
-        await recordsObj.deleteRecord(idDelete)
-        // Ya no hay necesidad de validacion aqui, por que dentro .modifyRecords() va a traer o un "true" de Servicesw o un "false"
-            // const deleteWorked = deleteRecord === true ? 'success delete' : 'fail delete';
-        res.status(202).json({message: 'Record eliminado exitosamente', idDelete});
+        const result = await recordsObj.deleteRecord(idDelete);
+        if (result.rowCount == 0){
+            res.status(404).json({message: 'No encontre el record', idDelete});
+        }else {
+            res.status(202).json({message: 'Record eliminado exitosamente', idDelete});
+        }
     } catch (error) {
         res.status(500).json({ message: 'No puedo eliminar el Record' });
     }
