@@ -5,13 +5,14 @@ const {
     get,
     getOne,
     create,
-    modifyTicket
+    modifyTicket,
+    deleteTicket
 } = require('../../controllers/tickets/index.js');
 
 ticketsRouter.get('/', get);
 ticketsRouter.get('/:id', getOne);
 ticketsRouter.post('/', create);
 ticketsRouter.patch('/:id', modifyTicket);
-
+ticketsRouter.delete('/:id', deleteTicket);
 
 module.exports = { ticketsRouter };
