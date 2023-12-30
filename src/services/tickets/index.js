@@ -11,7 +11,7 @@ class Tickets {
             const result = await connecDB.query(queryString);
             return result.rows;
         }catch (error) {
-            throw new Error('services error');
+            throw new Error(error);
         }
     }
 

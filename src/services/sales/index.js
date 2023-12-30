@@ -19,7 +19,7 @@ class Sales {
         try {
             const queryString = `SELECT * FROM sales WHERE id_sale = ${idLookUp}`;
             const result = await connDB.query(queryString);
-            return result.rowCount == 0 ? error : result.rows;
+            return result;
         }catch (error) {
             throw new Error (error);
         }
@@ -29,7 +29,7 @@ class Sales {
         try {
             const queryString = `SELECT * FROM sales WHERE id_ticket = ${idLookUp} ORDER BY id_sale ASC;`;
             const result = await connDB.query(queryString);
-            return result.rowCount == 0 ? error : result.rows;
+            return result;
         }catch (error) {
             throw new Error (error);
         }
@@ -39,7 +39,7 @@ class Sales {
         try {
             const queryString = `SELECT * FROM sales WHERE id_record = ${idLookUp} ORDER BY id_sale ASC;`;
             const result = await connDB.query(queryString);
-            return result.rowCount == 0 ? error : result.rows;
+            return result;
         }catch (error) {
             throw new Error (error);
         }
@@ -75,7 +75,7 @@ class Sales {
             const queryString = `UPDATE sales SET id_record = $1, id_ticket = $2, piece_quantity = $3 WHERE id_sale = $4;`;
             const params = [id_record, id_ticket, piece_quantity, idLookUp];
             const result = await connDB.query(queryString, params);
-            return result.rowCount == 0 ? error : result.rows;
+            return result;
         }catch (error) {
             throw new Error (error);
         }
@@ -83,9 +83,9 @@ class Sales {
 
     async deleteSale (idLookUp) {
         try {
-            const queryString = `DELETE * FROM sales WHERE id_sale = ${idLookUp}`;
+            const queryString = `DELETE FROM sales WHERE id_sale = ${idLookUp}`;
             const result = await connDB.query(queryString);
-            return result.rowCount == 0 ? error : result.rows;
+            return result;
         }catch (error) {
             throw new Error (error);
         }

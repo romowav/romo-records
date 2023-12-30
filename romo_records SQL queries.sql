@@ -116,7 +116,7 @@ INSERT INTO tickets (total) VALUES (1);
 
 -- TEST para CHECK validations
 INSERT INTO records (id_record, band, record_title, release_year, sale_prize, purchase_prize, storage_quantity)
-VALUES (DEFAULT, 'La Vida Boh', 'Caribe Caribe', 2020, 1200, 200, 1);
+VALUES (NEXTVAL('id_para_records'), 'Kali Uchis', 'Isolation', 2018, 1250, 350, 30);
 
 INSERT INTO tickets (successful, total) VALUES (true, 5);
 
@@ -128,6 +128,8 @@ VALUES (99, 100, 1475);
 
 -- TEST para CONSTRAINTS
 INSERT INTO sales (id_record, id_ticket, piece_quantity) VALUES (5, 3, 2);
+
+DELETE FROM records WHERE id_record = 18;
 
 
 -- Comandos Generales

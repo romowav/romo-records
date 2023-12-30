@@ -14,7 +14,11 @@ const getOneSale = async (req,res) => {
     try {
         const idSale = req.params.id;
         const oneSale = await salesObj.getOneSale(idSale);
-        res.status(200).json(oneSale);
+        if (oneSale.rowCount == 0) {
+            res.status(404).json({message: 'No encontre la sale'});
+        }else {
+            res.status(200).json(oneSale.rows);
+        }
     }catch (error) {
         res.status(500).json({message: 'No puedo conseguir la sale'});
     }
@@ -24,7 +28,11 @@ const getSaleByTicket = async (req,res) => {
     try {
         const idTicket = req.params.id;
         const salesWithTicket = await salesObj.getSaleByTicket(idTicket);
-        res.status(200).json(salesWithTicket);
+        if (salesWithTicket.rowCount == 0) {
+            res.status(404).json({message: 'No encontre las sales con ese ticket'});
+        }else {
+            res.status(200).json(salesWithTicket.rows);
+        }
     }catch (error) {
         res.status(500).json({message: 'No puedo conseguir la sale con ese ticket'});
     }
@@ -34,7 +42,11 @@ const getSaleByRecord = async (req,res) => {
     try {
         const idRecord = req.params.id;
         const salesWithRecord = await salesObj.getSaleByRecord(idRecord);
-        res.status(200).json(salesWithRecord);
+        if (salesWithRecord.rowCount == 0) {
+            res.status(404).json({message: 'No encontre los sales con ese record'});
+        }else { 
+            res.status(200).json(salesWithRecord.rows);
+        }
     }catch (error) {
         res.status(500).json({message: 'No puedo conseguir la sale con ese record'});
     }
@@ -43,7 +55,12 @@ const getSaleByRecord = async (req,res) => {
 const createSale = async (req,res) => {
     try {
         const newSale = req.body;
-        await salesObj.createSale(newSale);
+        const result = await salesObj.createSale(newSale);
+        if (result.rowCount == 0) {
+            res.status(403).json({message: 'No pude agregar el record'});
+        } else {
+            res.status(201).json({message: 'Nuevo record agregado', data: newSale.rows});
+        }
         res.status(201).json({message: 'nueva sale agregada exitosamente', newSale})
     }catch (error) {
         res.status(500).json({message: 'No puedo crear la sale'});
@@ -54,8 +71,12 @@ const modifySale = async (req,res) => {
     try {
         const modSale = req.body;
         const modId = req.params.id;
-        await salesObj.modifySale(modSale, modId);
-        res.status(201).json({message: 'Sale modificada exitosamente', id: modId, data: modSale})  
+        const result = await salesObj.modifySale(modSale, modId);
+        if (result.rowCount == 0){
+            res.status(404).json({message: 'No encontre lsa Sale', id: modId});
+        } else {
+            res.status(201).json({message: 'Sale modificada exitosamente', id: modId, data: modSale})  
+        }
     }catch (error) {
         res.status(500).json({message: 'No puedo modificar la sale'});
     }
@@ -64,8 +85,12 @@ const modifySale = async (req,res) => {
 const deleteSale = async (req,res) => {
     try {
         const delID = req.params.id;
-        await salesObj.deleteSale(delID);
-        res.status(200).json({message: 'Sale eliminada exitosamente', id: delID});
+        const result = await salesObj.deleteSale(delID);
+        if (result.rowCount == 0){
+            res.status(404).json({message: 'No encontre la Sale', delID});
+        }else {
+            res.status(200).json({message: 'Sale eliminada exitosamente', id: delID});
+        }
     }catch (error) {
         res.status(500).json({message: 'No puedo borrar la sale'});
     }
